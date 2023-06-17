@@ -3,6 +3,7 @@ package com.mycompany.maven_exam;
 import com.google.common.collect.Iterables;
 import java.util.ArrayList;
 import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JRadioButtonMenuItem;
 
 /**
  *
@@ -12,18 +13,26 @@ public class TextWork {
     private ArrayList<String> new_text;
     TextWork textWorker;
     
-    public ArrayList<String> changeText(ArrayList<String> text, ArrayList<String> ru_stop_words, JCheckBoxMenuItem UseRusButton, JCheckBoxMenuItem UseStopWordsButton)
+    public ArrayList<String> changeText(ArrayList<String> text, ArrayList<String> ru_stop_words, ArrayList<String> eng_stop_words, JRadioButtonMenuItem UseRusButton, JRadioButtonMenuItem UseEngButton, JCheckBoxMenuItem UseRuStopWordsButton, JCheckBoxMenuItem UseEngStopWordsButton)
     {
         textWorker = new TextWork();
         text = textWorker.toLowerCase(text);
         text = textWorker.deleteSigns(text);
-        if(UseRusButton.getState())
+        if(UseRusButton.isSelected())
         {
             text = textWorker.deleteNotRus(text);
         }
-        if(UseStopWordsButton.getState())
+        if(UseEngButton.isSelected())
+        {
+            text = textWorker.deleteNotEng(text);
+        }
+        if(UseRuStopWordsButton.getState())
         {
             textWorker.useStopWords(text, ru_stop_words);
+        }
+        if(UseEngStopWordsButton.getState())
+        {
+            textWorker.useStopWords(text, eng_stop_words);
         }
         return text;
     }
@@ -63,6 +72,17 @@ public class TextWork {
         return new_text;
     }
 
+    public ArrayList<String> deleteNotEng(ArrayList<String> text)
+    {
+        new_text = new ArrayList<>();
+        for(int i=0; i<text.size(); i++)
+        {
+            new_text.add(text.get(i).replaceAll("[^a-z]", ""));
+        }
+        new_text.removeIf(word -> word.equals(""));
+        return new_text;
+    }
+    
     public void useStopWords(ArrayList<String> text, ArrayList<String> ru_stop_words)
     {
         for(String wordToRemove : Iterables.skip(ru_stop_words, 1)) 

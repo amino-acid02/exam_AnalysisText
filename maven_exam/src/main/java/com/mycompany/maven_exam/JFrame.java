@@ -33,6 +33,7 @@ public class JFrame extends javax.swing.JFrame {
     ArrayList<String> text;
     ArrayList<String> changed_text;
     ArrayList<String> ru_stop_words;
+    ArrayList<String> eng_stop_words;
     
     DefaultTableModel freq_table;
     FileWork fileWorker;
@@ -79,8 +80,11 @@ public class JFrame extends javax.swing.JFrame {
         settingsMenu = new javax.swing.JMenu();
         useStopWords = new javax.swing.JMenu();
         useRuStopWordsButton = new javax.swing.JCheckBoxMenuItem();
+        useEngStopWordsButton = new javax.swing.JCheckBoxMenuItem();
         extraSettingsMenu = new javax.swing.JMenu();
-        useRusButton = new javax.swing.JCheckBoxMenuItem();
+        useEngButton = new javax.swing.JRadioButtonMenuItem();
+        useRusButton = new javax.swing.JRadioButtonMenuItem();
+        deleteSelectionsButton = new javax.swing.JMenuItem();
         saveReportMessage = new javax.swing.JDialog();
         jPanel2 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
@@ -98,6 +102,7 @@ public class JFrame extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         gifLabel = new javax.swing.JLabel();
+        group = new javax.swing.ButtonGroup();
         startPanel = new javax.swing.JPanel();
         helloLabel1 = new javax.swing.JLabel();
         helloLabel2 = new javax.swing.JLabel();
@@ -346,12 +351,13 @@ public class JFrame extends javax.swing.JFrame {
         settingsMenu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         settingsMenu.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        useStopWords.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         useStopWords.setForeground(new java.awt.Color(102, 102, 255));
         useStopWords.setText("Использовать стоп-слова");
 
         useRuStopWordsButton.setForeground(new java.awt.Color(102, 102, 255));
         useRuStopWordsButton.setText("Русские стоп-слова");
-        useRuStopWordsButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        useRuStopWordsButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         useRuStopWordsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 useRuStopWordsButtonActionPerformed(evt);
@@ -359,21 +365,43 @@ public class JFrame extends javax.swing.JFrame {
         });
         useStopWords.add(useRuStopWordsButton);
 
+        useEngStopWordsButton.setForeground(new java.awt.Color(102, 102, 255));
+        useEngStopWordsButton.setText("Английские стоп-слова");
+        useEngStopWordsButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        useEngStopWordsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                useEngStopWordsButtonActionPerformed(evt);
+            }
+        });
+        useStopWords.add(useEngStopWordsButton);
+
         settingsMenu.add(useStopWords);
 
+        extraSettingsMenu.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         extraSettingsMenu.setForeground(new java.awt.Color(102, 102, 255));
         extraSettingsMenu.setText("Расширенные настройки");
 
+        group.add(useEngButton);
+        useEngButton.setForeground(new java.awt.Color(102, 102, 255));
+        useEngButton.setText("Очистить русский язык");
+        useEngButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        extraSettingsMenu.add(useEngButton);
+
+        group.add(useRusButton);
         useRusButton.setForeground(new java.awt.Color(102, 102, 255));
-        useRusButton.setSelected(true);
         useRusButton.setText("Очистить английский язык");
-        useRusButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        useRusButton.addActionListener(new java.awt.event.ActionListener() {
+        useRusButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        extraSettingsMenu.add(useRusButton);
+
+        deleteSelectionsButton.setForeground(new java.awt.Color(102, 102, 255));
+        deleteSelectionsButton.setText("Отменить выбор");
+        deleteSelectionsButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        deleteSelectionsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                useRusButtonActionPerformed(evt);
+                deleteSelectionsButtonActionPerformed(evt);
             }
         });
-        extraSettingsMenu.add(useRusButton);
+        extraSettingsMenu.add(deleteSelectionsButton);
 
         settingsMenu.add(extraSettingsMenu);
 
@@ -740,7 +768,7 @@ public class JFrame extends javax.swing.JFrame {
         textWorker = new TextWork();
         try{
             changed_text = new ArrayList<>();
-            changed_text = textWorker.changeText(text, ru_stop_words, useRusButton, useRuStopWordsButton);
+            changed_text = textWorker.changeText(text, ru_stop_words, eng_stop_words, useRusButton, useEngButton, useRuStopWordsButton, useEngStopWordsButton);
 
             if(!changed_text.isEmpty())
             {
@@ -767,6 +795,8 @@ public class JFrame extends javax.swing.JFrame {
 
     private void importButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importButtonActionPerformed
         fileWorker = new FileWork();
+        textWorker = new TextWork();
+
         JFileChooser filechooser = new JFileChooser();
         filechooser.setDialogTitle("Выбор файлов");
         filechooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
@@ -778,6 +808,12 @@ public class JFrame extends javax.swing.JFrame {
             if(selectedFile.getName().equals("stop-ru.txt"))
             {
                 ru_stop_words = fileWorker.importFile(selectedFile.toString());
+
+                uploadStopWordsMessage.setVisible(true);
+                uploadStopWordsMessage.setBounds(300,300,250,150);
+            } else if(selectedFile.getName().equals("stop-eng.txt"))
+            {
+                eng_stop_words = fileWorker.importFile(selectedFile.toString());
                 
                 uploadStopWordsMessage.setVisible(true);
                 uploadStopWordsMessage.setBounds(300,300,250,150);
@@ -786,7 +822,7 @@ public class JFrame extends javax.swing.JFrame {
                 text = fileWorker.importFile(selectedFile.toString());
                 
                 uploadFileMessage.setVisible(true);
-                uploadFileMessage.setBounds(300,300,250,150);
+                uploadFileMessage.setBounds(300,300,230,150);
             } else
             {
                 JOptionPane.showMessageDialog (null, "Неверное расширение файла! Выберите файл txt", "Oшибка", JOptionPane.ERROR_MESSAGE);
@@ -817,9 +853,16 @@ public class JFrame extends javax.swing.JFrame {
         uploadFileMessage.dispose();
     }//GEN-LAST:event_okUploadFileButtonActionPerformed
 
-    private void useRusButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_useRusButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_useRusButtonActionPerformed
+    private void useEngStopWordsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_useEngStopWordsButtonActionPerformed
+        if(useEngStopWordsButton.getState() && eng_stop_words == null)
+        {
+            JOptionPane.showMessageDialog (null, "Вы не выбрали файл со стоп-словами!", "Oшибка", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_useEngStopWordsButtonActionPerformed
+
+    private void deleteSelectionsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteSelectionsButtonActionPerformed
+        group.clearSelection();
+    }//GEN-LAST:event_deleteSelectionsButtonActionPerformed
 
 Timer timer = new Timer(5000, new ActionListener(){
     @Override
@@ -867,6 +910,7 @@ Timer timer = new Timer(5000, new ActionListener(){
     private javax.swing.JTable FreqTable;
     private javax.swing.JFrame MainJFrame;
     private javax.swing.JMenuItem analyzeButton;
+    private javax.swing.JMenuItem deleteSelectionsButton;
     private javax.swing.JLabel descriptionLabel1;
     private javax.swing.JLabel descriptionLabel2;
     private javax.swing.JLabel descriptionLabel3;
@@ -875,6 +919,7 @@ Timer timer = new Timer(5000, new ActionListener(){
     private javax.swing.JMenuItem exportButton;
     private javax.swing.JMenu extraSettingsMenu;
     private javax.swing.JLabel gifLabel;
+    private javax.swing.ButtonGroup group;
     private javax.swing.JButton guideButton;
     private javax.swing.JDialog guideDialog;
     private javax.swing.JPanel guidePanel;
@@ -917,8 +962,10 @@ Timer timer = new Timer(5000, new ActionListener(){
     private javax.swing.JLabel unpopularWordField;
     private javax.swing.JDialog uploadFileMessage;
     private javax.swing.JDialog uploadStopWordsMessage;
+    private javax.swing.JRadioButtonMenuItem useEngButton;
+    private javax.swing.JCheckBoxMenuItem useEngStopWordsButton;
     private javax.swing.JCheckBoxMenuItem useRuStopWordsButton;
-    private javax.swing.JCheckBoxMenuItem useRusButton;
+    private javax.swing.JRadioButtonMenuItem useRusButton;
     private javax.swing.JMenu useStopWords;
     // End of variables declaration//GEN-END:variables
 }
