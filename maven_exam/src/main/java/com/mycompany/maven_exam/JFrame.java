@@ -745,7 +745,7 @@ public class JFrame extends javax.swing.JFrame {
             if(!changed_text.isEmpty())
             {
                 loadingFrame.setVisible(true);
-                loadingFrame.setBounds(200, 200, 350, 330);
+                loadingFrame.setBounds(300, 300, 350, 330);
                 ImageIcon gif = new ImageIcon(System.getProperty("user.dir")+"/resources/loading.gif");
                 gifLabel.setIcon(gif);
             

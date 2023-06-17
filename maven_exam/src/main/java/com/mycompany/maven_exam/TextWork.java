@@ -44,11 +44,11 @@ public class TextWork {
         new_text = new ArrayList<>();
         for(int i=0; i<text.size(); i++)
         {
-            String symbol = text.get(i).replaceAll("^\\pP+|\\pP+$", "").replaceAll("\\d", "");
+            String symbol = text.get(i).replaceAll("[^\\wа-я]", "").replaceAll("\\d", "");
             new_text.add(symbol);
         }
         new_text.removeIf(word -> word.equals(""));
-        new_text.removeIf(word -> word.matches("\\pP+"));
+        new_text.removeIf(word -> word.equals("\\pP+"));
         return new_text;
     }
     
