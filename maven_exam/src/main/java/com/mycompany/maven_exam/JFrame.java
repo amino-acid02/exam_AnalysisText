@@ -62,6 +62,8 @@ public class JFrame extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
         MainJFrame = new javax.swing.JFrame();
         mainPanel = new javax.swing.JPanel();
         scrollPanel = new javax.swing.JScrollPane();
@@ -80,7 +82,9 @@ public class JFrame extends javax.swing.JFrame {
         settingsMenu = new javax.swing.JMenu();
         useStopWords = new javax.swing.JMenu();
         useRuStopWordsButton = new javax.swing.JCheckBoxMenuItem();
+        editRuStopWordsButton = new javax.swing.JMenuItem();
         useEngStopWordsButton = new javax.swing.JCheckBoxMenuItem();
+        editEngStopWordsButton = new javax.swing.JMenuItem();
         extraSettingsMenu = new javax.swing.JMenu();
         useEngButton = new javax.swing.JRadioButtonMenuItem();
         useRusButton = new javax.swing.JRadioButtonMenuItem();
@@ -103,6 +107,12 @@ public class JFrame extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         gifLabel = new javax.swing.JLabel();
         group = new javax.swing.ButtonGroup();
+        ruStopWordsFrame = new javax.swing.JFrame();
+        ruStopWordsScrollPanel = new javax.swing.JScrollPane();
+        ruStopWordsList = new javax.swing.JList<>();
+        engStopWordsFrame = new javax.swing.JFrame();
+        engStopWordsScrollPanel = new javax.swing.JScrollPane();
+        engStopWordsList = new javax.swing.JList<>();
         startPanel = new javax.swing.JPanel();
         helloLabel1 = new javax.swing.JLabel();
         helloLabel2 = new javax.swing.JLabel();
@@ -146,6 +156,10 @@ public class JFrame extends javax.swing.JFrame {
 
         jLabel10.setText("4. Нажмите кнопку \"Сохранить отчет\", если вы хотите сохранить выполненный анализ текст. ");
 
+        jLabel15.setText("Также нажав кнопку \"Редактировать стоп-слова\", вы можете выделить стоп-слова, которые");
+
+        jLabel16.setText("не будут учитываться при фильтрации текста.");
+
         javax.swing.GroupLayout guidePanelLayout = new javax.swing.GroupLayout(guidePanel);
         guidePanel.setLayout(guidePanelLayout);
         guidePanelLayout.setHorizontalGroup(
@@ -164,20 +178,23 @@ public class JFrame extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(exitFromGuideButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(guidePanelLayout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(30, 30, 30)
+                        .addGroup(guidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE)
+                            .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(guidePanelLayout.createSequentialGroup()
                         .addGap(15, 15, 15)
-                        .addGroup(guidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(guidePanelLayout.createSequentialGroup()
-                                .addGap(15, 15, 15)
-                                .addGroup(guidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGroup(guidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
+            .addGroup(guidePanelLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jLabel7)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         guidePanelLayout.setVerticalGroup(
             guidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,12 +212,16 @@ public class JFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel16)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(exitFromGuideButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -365,6 +386,15 @@ public class JFrame extends javax.swing.JFrame {
         });
         useStopWords.add(useRuStopWordsButton);
 
+        editRuStopWordsButton.setForeground(new java.awt.Color(102, 102, 255));
+        editRuStopWordsButton.setText("Редактировать русские стоп-слова");
+        editRuStopWordsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editRuStopWordsButtonActionPerformed(evt);
+            }
+        });
+        useStopWords.add(editRuStopWordsButton);
+
         useEngStopWordsButton.setForeground(new java.awt.Color(102, 102, 255));
         useEngStopWordsButton.setText("Английские стоп-слова");
         useEngStopWordsButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -374,6 +404,15 @@ public class JFrame extends javax.swing.JFrame {
             }
         });
         useStopWords.add(useEngStopWordsButton);
+
+        editEngStopWordsButton.setForeground(new java.awt.Color(102, 102, 255));
+        editEngStopWordsButton.setText("Редактировать английские стоп-слова");
+        editEngStopWordsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editEngStopWordsButtonActionPerformed(evt);
+            }
+        });
+        useStopWords.add(editEngStopWordsButton);
 
         settingsMenu.add(useStopWords);
 
@@ -632,6 +671,32 @@ public class JFrame extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        ruStopWordsScrollPanel.setViewportView(ruStopWordsList);
+
+        javax.swing.GroupLayout ruStopWordsFrameLayout = new javax.swing.GroupLayout(ruStopWordsFrame.getContentPane());
+        ruStopWordsFrame.getContentPane().setLayout(ruStopWordsFrameLayout);
+        ruStopWordsFrameLayout.setHorizontalGroup(
+            ruStopWordsFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(ruStopWordsScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+        );
+        ruStopWordsFrameLayout.setVerticalGroup(
+            ruStopWordsFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(ruStopWordsScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+        );
+
+        engStopWordsScrollPanel.setViewportView(engStopWordsList);
+
+        javax.swing.GroupLayout engStopWordsFrameLayout = new javax.swing.GroupLayout(engStopWordsFrame.getContentPane());
+        engStopWordsFrame.getContentPane().setLayout(engStopWordsFrameLayout);
+        engStopWordsFrameLayout.setHorizontalGroup(
+            engStopWordsFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(engStopWordsScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+        );
+        engStopWordsFrameLayout.setVerticalGroup(
+            engStopWordsFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(engStopWordsScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
@@ -728,7 +793,7 @@ public class JFrame extends javax.swing.JFrame {
 
     private void guideButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guideButtonActionPerformed
         guideDialog.setVisible(true);
-        guideDialog.setBounds(200, 100, 660, 350);
+        guideDialog.setBounds(300, 200, 660, 390);
     }//GEN-LAST:event_guideButtonActionPerformed
 
     private void useRuStopWordsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_useRuStopWordsButtonActionPerformed
@@ -768,8 +833,7 @@ public class JFrame extends javax.swing.JFrame {
         textWorker = new TextWork();
         try{
             changed_text = new ArrayList<>();
-            changed_text = textWorker.changeText(text, ru_stop_words, eng_stop_words, useRusButton, useEngButton, useRuStopWordsButton, useEngStopWordsButton);
-
+            changed_text = textWorker.changeText(text, ru_stop_words, eng_stop_words, useRusButton, useEngButton, useRuStopWordsButton, useEngStopWordsButton, ruStopWordsList, engStopWordsList);
             if(!changed_text.isEmpty())
             {
                 loadingFrame.setVisible(true);
@@ -796,7 +860,7 @@ public class JFrame extends javax.swing.JFrame {
     private void importButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importButtonActionPerformed
         fileWorker = new FileWork();
         textWorker = new TextWork();
-
+        
         JFileChooser filechooser = new JFileChooser();
         filechooser.setDialogTitle("Выбор файлов");
         filechooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
@@ -808,15 +872,13 @@ public class JFrame extends javax.swing.JFrame {
             if(selectedFile.getName().equals("stop-ru.txt"))
             {
                 ru_stop_words = fileWorker.importFile(selectedFile.toString());
-
-                uploadStopWordsMessage.setVisible(true);
-                uploadStopWordsMessage.setBounds(300,300,250,150);
+                
+                textWorker.uploadStopWords(ru_stop_words, ruStopWordsList, uploadStopWordsMessage, useRuStopWordsButton);
             } else if(selectedFile.getName().equals("stop-eng.txt"))
             {
                 eng_stop_words = fileWorker.importFile(selectedFile.toString());
                 
-                uploadStopWordsMessage.setVisible(true);
-                uploadStopWordsMessage.setBounds(300,300,250,150);
+                textWorker.uploadStopWords(eng_stop_words, engStopWordsList, uploadStopWordsMessage, useEngStopWordsButton);
             } else if(extension.equals("txt"))
             {
                 text = fileWorker.importFile(selectedFile.toString());
@@ -864,7 +926,17 @@ public class JFrame extends javax.swing.JFrame {
         group.clearSelection();
     }//GEN-LAST:event_deleteSelectionsButtonActionPerformed
 
-Timer timer = new Timer(5000, new ActionListener(){
+    private void editRuStopWordsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editRuStopWordsButtonActionPerformed
+        ruStopWordsFrame.setVisible(true);
+        ruStopWordsFrame.setBounds(300, 200, 400, 300);
+    }//GEN-LAST:event_editRuStopWordsButtonActionPerformed
+
+    private void editEngStopWordsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editEngStopWordsButtonActionPerformed
+        engStopWordsFrame.setVisible(true);
+        engStopWordsFrame.setBounds(300, 200, 400, 300);
+    }//GEN-LAST:event_editEngStopWordsButtonActionPerformed
+
+Timer timer = new Timer(3000, new ActionListener(){
     @Override
     public void actionPerformed(ActionEvent evt) {
         loadingFrame.dispose();
@@ -914,6 +986,11 @@ Timer timer = new Timer(5000, new ActionListener(){
     private javax.swing.JLabel descriptionLabel1;
     private javax.swing.JLabel descriptionLabel2;
     private javax.swing.JLabel descriptionLabel3;
+    private javax.swing.JMenuItem editEngStopWordsButton;
+    private javax.swing.JMenuItem editRuStopWordsButton;
+    private javax.swing.JFrame engStopWordsFrame;
+    private javax.swing.JList<String> engStopWordsList;
+    private javax.swing.JScrollPane engStopWordsScrollPanel;
     private javax.swing.JMenuItem exitButton;
     private javax.swing.JButton exitFromGuideButton;
     private javax.swing.JMenuItem exportButton;
@@ -932,6 +1009,8 @@ Timer timer = new Timer(5000, new ActionListener(){
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -954,6 +1033,9 @@ Timer timer = new Timer(5000, new ActionListener(){
     private javax.swing.JButton okUploadFileButton;
     private javax.swing.JButton okUploadStopWordsButton;
     private javax.swing.JLabel popularWordField;
+    private javax.swing.JFrame ruStopWordsFrame;
+    private javax.swing.JList<String> ruStopWordsList;
+    private javax.swing.JScrollPane ruStopWordsScrollPanel;
     private javax.swing.JDialog saveReportMessage;
     private javax.swing.JScrollPane scrollPanel;
     private javax.swing.JMenu settingsMenu;

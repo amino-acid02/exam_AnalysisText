@@ -2,8 +2,14 @@ package com.mycompany.maven_exam;
 
 import com.google.common.collect.Iterables;
 import java.util.ArrayList;
+import java.util.List;
+import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JDialog;
+import javax.swing.JList;
 import javax.swing.JRadioButtonMenuItem;
+import javax.swing.SwingConstants;
 
 /**
  *
@@ -11,9 +17,9 @@ import javax.swing.JRadioButtonMenuItem;
  */
 public class TextWork {
     private ArrayList<String> new_text;
-    TextWork textWorker;
+    private TextWork textWorker;
     
-    public ArrayList<String> changeText(ArrayList<String> text, ArrayList<String> ru_stop_words, ArrayList<String> eng_stop_words, JRadioButtonMenuItem UseRusButton, JRadioButtonMenuItem UseEngButton, JCheckBoxMenuItem UseRuStopWordsButton, JCheckBoxMenuItem UseEngStopWordsButton)
+    public ArrayList<String> changeText(ArrayList<String> text, ArrayList<String> ru_stop_words, ArrayList<String> eng_stop_words, JRadioButtonMenuItem UseRusButton, JRadioButtonMenuItem UseEngButton, JCheckBoxMenuItem UseRuStopWordsButton, JCheckBoxMenuItem UseEngStopWordsButton, JList ruStopWordsList, JList engStopWordsList)
     {
         textWorker = new TextWork();
         text = textWorker.toLowerCase(text);
@@ -28,11 +34,11 @@ public class TextWork {
         }
         if(UseRuStopWordsButton.getState())
         {
-            textWorker.useStopWords(text, ru_stop_words);
+            textWorker.useStopWords(text, ru_stop_words, ruStopWordsList);
         }
         if(UseEngStopWordsButton.getState())
         {
-            textWorker.useStopWords(text, eng_stop_words);
+            textWorker.useStopWords(text, eng_stop_words, engStopWordsList);
         }
         return text;
     }
@@ -53,8 +59,8 @@ public class TextWork {
         new_text = new ArrayList<>();
         for(int i=0; i<text.size(); i++)
         {
-            String symbol = text.get(i).replaceAll("[^\\wа-я]", "").replaceAll("\\d", "");
-            new_text.add(symbol);
+            String word = text.get(i).replaceAll("[^\\wа-я]", "").replaceAll("\\d", "");
+            new_text.add(word);
         }
         new_text.removeIf(word -> word.equals(""));
         new_text.removeIf(word -> word.equals("\\pP+"));
@@ -83,11 +89,38 @@ public class TextWork {
         return new_text;
     }
     
-    public void useStopWords(ArrayList<String> text, ArrayList<String> ru_stop_words)
+    public void useStopWords(ArrayList<String> text, ArrayList<String> stop_words, JList stopWordsList)
     {
-        for(String wordToRemove : Iterables.skip(ru_stop_words, 1)) 
+        List selectedValues = stopWordsList.getSelectedValuesList();
+        for(String wordToRemove : Iterables.skip(stop_words, 1)) 
         { 
+            if(selectedValues.contains(wordToRemove)) //слова, которые не хотим удалять из текста
+            {
+                continue;
+            }
             text.removeIf(word -> word.equals(wordToRemove));
         }
+    }
+    
+    public DefaultListModel createStopWordsList(ArrayList<String> stop_words)
+    {
+        DefaultListModel list = new DefaultListModel();
+        for (String word : Iterables.skip(stop_words, 1))
+        {
+            list.addElement(word);
+        }
+        return list;
+    }
+    
+    public void uploadStopWords(ArrayList<String> stop_words, JList stopWordsList, JDialog uploadStopWordsMessage, JCheckBoxMenuItem useStopWordsButton)
+    {
+        textWorker = new TextWork();
+        ImageIcon img = new ImageIcon(System.getProperty("user.dir")+"/resources/add.png");
+        
+        stopWordsList.setModel(textWorker.createStopWordsList(stop_words));
+        uploadStopWordsMessage.setVisible(true);
+        uploadStopWordsMessage.setBounds(300,300,250,150);
+        useStopWordsButton.setIcon(img);
+        useStopWordsButton.setHorizontalTextPosition(SwingConstants.LEFT);
     }
 }
