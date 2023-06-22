@@ -6,7 +6,9 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -68,5 +70,5 @@ public class AnalysisWork {
         PopularWordField.setText("Самое часто встречающееся слово: "+popularWord);
         UnpopularWordField.setText("Самое редко встречающееся слово: "+unpopularWord);
     }
-  
+
 }

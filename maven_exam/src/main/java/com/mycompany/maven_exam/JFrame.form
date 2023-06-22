@@ -554,6 +554,9 @@
                           </Border>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="useEngButtonActionPerformed"/>
+                      </Events>
                     </MenuItem>
                     <MenuItem class="javax.swing.JRadioButtonMenuItem" name="useRusButton">
                       <Properties>
@@ -570,6 +573,9 @@
                           </Border>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="useRusButtonActionPerformed"/>
+                      </Events>
                     </MenuItem>
                     <MenuItem class="javax.swing.JMenuItem" name="deleteSelectionsButton">
                       <Properties>

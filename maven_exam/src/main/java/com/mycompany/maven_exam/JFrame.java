@@ -424,12 +424,22 @@ public class JFrame extends javax.swing.JFrame {
         useEngButton.setForeground(new java.awt.Color(102, 102, 255));
         useEngButton.setText("Очистить русский язык");
         useEngButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        useEngButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                useEngButtonActionPerformed(evt);
+            }
+        });
         extraSettingsMenu.add(useEngButton);
 
         group.add(useRusButton);
         useRusButton.setForeground(new java.awt.Color(102, 102, 255));
         useRusButton.setText("Очистить английский язык");
         useRusButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        useRusButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                useRusButtonActionPerformed(evt);
+            }
+        });
         extraSettingsMenu.add(useRusButton);
 
         deleteSelectionsButton.setForeground(new java.awt.Color(102, 102, 255));
@@ -836,11 +846,7 @@ public class JFrame extends javax.swing.JFrame {
             changed_text = textWorker.changeText(text, ru_stop_words, eng_stop_words, useRusButton, useEngButton, useRuStopWordsButton, useEngStopWordsButton, ruStopWordsList, engStopWordsList);
             if(!changed_text.isEmpty())
             {
-                loadingFrame.setVisible(true);
-                loadingFrame.setBounds(300, 300, 350, 330);
-                ImageIcon gif = new ImageIcon(System.getProperty("user.dir")+"/resources/loading.gif");
-                gifLabel.setIcon(gif);
-            
+                loadingProcess();
                 timer.setRepeats(false);
                 timer.start();
                 
@@ -936,12 +942,28 @@ public class JFrame extends javax.swing.JFrame {
         engStopWordsFrame.setBounds(300, 200, 400, 300);
     }//GEN-LAST:event_editEngStopWordsButtonActionPerformed
 
+    private void useEngButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_useEngButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_useEngButtonActionPerformed
+
+    private void useRusButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_useRusButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_useRusButtonActionPerformed
+
 Timer timer = new Timer(3000, new ActionListener(){
     @Override
     public void actionPerformed(ActionEvent evt) {
         loadingFrame.dispose();
     }
-});    
+}); 
+
+public void loadingProcess()
+{
+    loadingFrame.setVisible(true);
+    loadingFrame.setBounds(300, 300, 350, 330);
+    ImageIcon gif = new ImageIcon(System.getProperty("user.dir")+"/resources/loading.gif");
+    gifLabel.setIcon(gif);
+}
     /**
      * @param args the command line arguments
      */

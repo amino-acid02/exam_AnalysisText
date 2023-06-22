@@ -71,7 +71,7 @@ public class FileWork {
             cell1.setCellValue(mass[i].getText());
         }
 
-        String fileLocation = path + "/report.xlsx";
+        String fileLocation = path + "/Report.xlsx";
         FileOutputStream outputStream = new FileOutputStream(fileLocation);
         workbook.write(outputStream);
         workbook.close();
